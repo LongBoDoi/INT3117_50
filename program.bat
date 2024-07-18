@@ -7,22 +7,15 @@ echo Chọn sản phẩm
 echo 1: Bia (15.000đ)
 echo 2: Rượu (20.000đ)
 echo 3: Thuốc lá (8.000đ)
-echo 4: Thanh toán
+echo 0: Thanh toán
 
 REM Chọn sản phẩm
 :selectItem
 set /p "itemType=Lựa chọn: "
 
-if %itemType% EQU 4 (
+if %itemType% EQU 0 (
 	goto :checkout
-)
-
-set unitPrice=0
-set taxRate=0
-
-REM Chọn số lượng
-set /p "itemQuantity=Nhập số lượng: "
-if %itemType% EQU 1 (
+) else if %itemType% EQU 1 (
 	set unitPrice=15000
 	set taxRate=8
 ) else if %itemType% EQU 2 (
@@ -30,7 +23,20 @@ if %itemType% EQU 1 (
 	set taxRate=10
 ) else if %itemType% EQU 3 (
 	set unitPrice=8000
+) else (
+	echo Lựa chọn không hợp lệ.
+	goto :selectItem
 )
+
+REM Chọn số lượng
+:chooseQuantity
+set /p "itemQuantity=Nhập số lượng: "
+
+if %itemQuantity% LSS 0 (
+	echo Số lượng không hợp lệ.
+	goto :chooseQuantity
+)
+
 set /a "totalAmount=totalAmount + (itemQuantity * unitPrice) * (100 + taxRate) / 100"
 
 goto :selectItem
