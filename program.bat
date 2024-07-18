@@ -37,9 +37,9 @@ goto :selectItem
 
 REM Tính tổng tiền
 :checkout
-if %totalAmount% GEQ 200 (
+if %totalAmount% GEQ 400 (
 	set /a "totalAmount=totalAmount * 80 / 100"
-) else if %totalAmount% GEQ 100 (
+) else if %totalAmount% GEQ 200 (
 	set /a "totalAmount=totalAmount * 85 / 100"
 )
 echo Tổng tiền: %totalAmount%đ
